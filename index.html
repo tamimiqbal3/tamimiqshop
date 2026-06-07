@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamim Iqbal — Home</title>
+    <meta
+      name="description"
+      content="Tamim Iqbal — Tech Enthusiast, AI Researcher, Leader, Organizer. Rajshahi, Bangladesh."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ============================================================
+       HOME — SPECIFIC STYLES
+       ============================================================ */
+
+      /* Progress line */
+      #pageProgress {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background: var(--crimson);
+        z-index: 199;
+        transition: width 0.1s linear;
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        min-height: calc(100vh - 64px);
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 0;
+        align-items: stretch;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .hero-left {
+        padding: 80px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 1px solid var(--rule);
+      }
+
+      .hero-top {
+      }
+
+      .hero-eyebrow {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--crimson);
+        margin-bottom: 48px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        opacity: 0;
+        animation: fade-in 0.6s 0.1s ease both;
+      }
+      .hero-eyebrow .dash {
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: var(--crimson);
+      }
+
+      .hero-name {
+        font-family: var(--f-display);
+        font-weight: 800;
+        font-size: clamp(64px, 8.5vw, 128px);
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        overflow: hidden;
+      }
+      .hero-name .line {
+        display: block;
+        opacity: 0;
+        transform: translateY(100%);
+        animation: line-slide 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .hero-name .line:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .hero-name .line:nth-child(2) {
+        animation-delay: 0.36s;
+        color: var(--crimson);
+      }
+
+      @keyframes line-slide {
+        from {
+          opacity: 0;
+          transform: translateY(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-descriptor {
+        margin-top: 40px;
+        font-family: var(--f-mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        color: var(--silver);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0;
+        animation: fade-up 0.7s 0.6s ease both;
+      }
+      .hero-descriptor .sep {
+        color: var(--mute);
+        font-weight: 300;
+      }
+
+      .hero-bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: fade-up 0.7s 0.8s ease both;
+      }
+
+      .hero-tagline {
+        font-family: var(--f-serif);
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 300;
+        color: var(--silver);
+        max-width: 360px;
+        line-height: 1.6;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      /* ---------- HERO RIGHT PANEL ---------- */
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-image-container {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        background: #e8e4dc;
+        opacity: 0;
+        animation: fade-in 1s 0.5s ease both;
+      }
+      .hero-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        filter: contrast(1.04) saturate(0.9);
+        transition: transform 6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .hero-image-container:hover img {
+        transform: scale(1.03);
+      }
+
+      .hero-image-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+      .hero-image-placeholder .ph-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.24em;
+        color: var(--silver);
+        text-transform: uppercase;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        padding: 8px 16px;
+      }
+      .hero-image-placeholder .ph-icon {
+        width: 48px;
+        height: 48px;
+        opacity: 0.2;
+      }
+
+      .hero-meta-strip {
+        padding: 20px 28px;
+        border-top: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        opacity: 0;
+        animation: fade-in 0.6s 1s ease both;
+      }
+      .hero-meta-strip .meta-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      .hero-meta-strip .meta-value {
+        font-family: var(--f-display);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      /* ---------- INDICES BAR ---------- */
+      .indices-bar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-bottom: 1px solid var(--rule);
+      }
+      .index-cell {
+        padding: 40px 36px;
+        border-right: 1px solid var(--rule);
+        transition: background 0.25s;
+      }
+      .index-cell:last-child {
+        border-right: none;
+      }
+      .index-cell:hover {
+        background: rgba(200, 16, 46, 0.03);
+      }
+      .index-num {
+        font-family: var(--f-display);
+        font-size: 42px;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+      .index-num sup {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--crimson);
+        vertical-align: super;
+      }
+      .index-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: var(--silver);
+        text-transform: uppercase;
+        margin-top: 8px;
+      }
+
+      /* ---------- BRIEF SECTION ---------- */
+      .brief {
+        display: grid;
+        grid-template-columns: 260px 1fr 1fr;
+        border-bottom: 1px solid var(--rule);
+        min-height: 480px;
+      }
+      .brief-aside {
+        padding: 60px 40px;
+        border-right: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .brief-aside .aside-year {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        color: var(--mute);
+      }
+      .brief-aside .aside-tag {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      .brief-body {
+        padding: 60px 48px;
+        border-right: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .brief-body .brief-intro {
+        font-family: var(--f-serif);
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--ink);
+        margin-bottom: 28px;
+      }
+      .brief-body .brief-intro em {
+        font-style: italic;
+        color: var(--crimson);
+      }
+      .brief-body .brief-text {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.75;
+        color: var(--silver);
+      }
+      .brief-nav {
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 2px;
+      }
+      .brief-nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-top: 1px solid var(--rule);
+        text-decoration: none;
+        color: var(--ink);
+        transition:
+          padding-left 0.25s,
+          color 0.25s;
+      }
+      .brief-nav-link:last-child {
+        border-bottom: 1px solid var(--rule);
+      }
+      .brief-nav-link:hover {
+        padding-left: 8px;
+        color: var(--crimson);
+      }
+      .brief-nav-link .link-label {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .brief-nav-link .link-arrow {
+        font-family: var(--f-mono);
+        font-size: 14px;
+        color: var(--mute);
+        transition:
+          color 0.25s,
+          transform 0.25s;
+      }
+      .brief-nav-link:hover .link-arrow {
+        color: var(--crimson);
+        transform: translateX(4px);
+      }
+
+      /* ---------- STATEMENT BAND ---------- */
+      .statement {
+        padding: 80px 60px;
+        border-bottom: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .statement-text {
+        font-family: var(--f-serif);
+        font-size: clamp(28px, 3.5vw, 48px);
+        font-weight: 300;
+        line-height: 1.3;
+        color: var(--ink);
+        font-style: italic;
+      }
+      .statement-text strong {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--crimson);
+      }
+      .statement-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .statement-item .si-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .statement-item .si-value {
+        font-family: var(--f-display);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .statement-item .si-sub {
+        font-family: var(--f-display);
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--silver);
+        margin-top: 2px;
+      }
+
+      /* ---------- RESPONSIVE ---------- */
+      @media (max-width: 1100px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-right {
+          min-height: 400px;
+          flex-direction: row;
+        }
+        .hero-image-container {
+          min-height: 320px;
+        }
+        .hero-meta-strip {
+          flex-direction: row;
+          gap: 32px;
+          border-top: none;
+          border-left: 1px solid var(--rule);
+          min-width: 180px;
+        }
+        .indices-bar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .index-cell:nth-child(2) {
+          border-right: none;
+        }
+        .index-cell:nth-child(3) {
+          border-top: 1px solid var(--rule);
+        }
+        .index-cell:nth-child(4) {
+          border-top: 1px solid var(--rule);
+        }
+        .brief {
+          grid-template-columns: 1fr;
+        }
+        .brief-aside {
+          flex-direction: row;
+          align-items: center;
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+          padding: 24px 28px;
+        }
+        .brief-aside .aside-tag {
+          writing-mode: horizontal-tb;
+          transform: none;
+        }
+        .brief-body {
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+        }
+        .statement {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          padding: 60px 28px;
+        }
+      }
+      @media (max-width: 700px) {
+        .hero-left {
+          padding: 48px 24px 40px;
+        }
+        .indices-bar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-right {
+          flex-direction: column;
+        }
+        .hero-meta-strip {
+          flex-direction: row;
+          border-left: none;
+          border-top: 1px solid var(--rule);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pageProgress"></div>
+
+    <nav class="site-nav">
+      <a href="index.html" class="nav-wordmark"
+        >Tamim<span class="accent">.</span>Iqbal</a
+      >
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <span class="nav-index">Rajshahi, BD — 2025</span>
+      <button class="nav-burger" id="navBurger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="page-wrapper">
+      <section class="hero">
+        <div class="hero-left">
+          <div class="hero-top">
+            <div class="hero-eyebrow">
+              <span class="dash"></span>
+              Portfolio — 2025
+            </div>
+            <h1 class="hero-name">
+              <span class="line">Tamim</span>
+              <span class="line">Iqbal</span>
+            </h1>
+            <div class="hero-descriptor">
+              Tech Enthusiast
+              <span class="sep">/</span>
+              AI Researcher
+              <span class="sep">/</span>
+              Organizer
+            </div>
+          </div>
+          <div class="hero-bottom">
+            <p class="hero-tagline">
+              Designer. Organizer. AI Enthusiast.<br />Building at the
+              intersection of technology and human experience.
+            </p>
+            <div class="hero-cta">
+              <a href="about.html" class="btn btn-solid">
+                About Me
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M2 6h8M6 2l4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <a href="contact.html" class="btn btn-outline">Contact</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-image-container">
+            <img src="profile.jpg" alt="Tamim Iqbal Portfolio Image" />
+          </div>
+          <div class="hero-meta-strip">
+            <div>
+              <div class="meta-label">Current</div>
+              <div class="meta-value">HSC 2027 — NGDC</div>
+            </div>
+            <div>
+              <div class="meta-label">Location</div>
+              <div class="meta-value">Rajshahi, Bangladesh</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="indices-bar">
+        <div class="index-cell sr">
+          <div class="index-num">5.0<sup>GPA</sup></div>
+          <div class="index-label">SSC Result</div>
+        </div>
+        <div class="index-cell sr">
+          <div class="index-num">3<sup>+</sup></div>
+          <div class="index-label">Years Building</div>
+        </div>
+        <div class="index-cell sr">
+          <div class="index-num">2</div>
+          <div class="index-label">Institutions</div>
+        </div>
+        <div class="index-cell sr">
+          <div class="index-num">1</div>
+          <div class="index-label">Science Club</div>
+        </div>
+      </div>
+
+      <div class="brief">
+        <div class="brief-aside sr">
+          <div class="aside-year">2025</div>
+          <div class="aside-tag">Overview</div>
+        </div>
+        <div class="brief-body sr">
+          <p class="brief-intro">
+            A student who builds things, <em>leads people,</em> and thinks in
+            systems.
+          </p>
+          <p class="brief-text">
+            Currently pursuing HSC at New Government Degree College, Rajshahi,
+            while actively organizing events and developing digital tools for
+            the NGDC Science Club. Passionate about the intersection of
+            artificial intelligence and real-world problem solving.
+          </p>
+        </div>
+        <div class="brief-nav sr">
+          <a href="about.html" class="brief-nav-link">
+            <span class="link-label">About & Education</span>
+            <span class="link-arrow">&#8594;</span>
+          </a>
+          <a href="skills.html" class="brief-nav-link">
+            <span class="link-label">Skills & Expertise</span>
+            <span class="link-arrow">&#8594;</span>
+          </a>
+          <a href="shop.html" class="brief-nav-link">
+            <span class="link-label">Shop</span>
+            <span class="link-arrow">&#8594;</span>
+          </a>
+          <a href="contact.html" class="brief-nav-link">
+            <span class="link-label">Contact</span>
+            <span class="link-arrow">&#8594;</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="statement">
+        <p class="statement-text sr">
+          "Technology is most powerful when it
+          <strong>serves a community</strong> — not just a user."
+        </p>
+        <div class="statement-meta" data-stagger="0.12">
+          <div class="statement-item sr">
+            <div class="si-label">Current Institution</div>
+            <div class="si-value">New Government Degree College</div>
+            <div class="si-sub">Rajshahi — HSC Science, Batch 2027</div>
+          </div>
+          <div class="statement-item sr">
+            <div class="si-label">Previous Institution</div>
+            <div class="si-value">Rajshahi Collegiate School</div>
+            <div class="si-sub">SSC 2025 — GPA 5.0 / 5.0</div>
+          </div>
+          <div class="statement-item sr">
+            <div class="si-label">Club</div>
+            <div class="si-value">NGDC Science Club (NGDCSC)</div>
+            <div class="si-sub">Organizational & Leadership Roles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-left">
+        &copy; 2025 Tamim Iqbal &nbsp;&middot;&nbsp;
+        <a href="https://tamimiq.shop" target="_blank" rel="noopener"
+          >tamimiq.shop</a
+        >
+      </div>
+      <div class="footer-right">Rajshahi, Bangladesh</div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

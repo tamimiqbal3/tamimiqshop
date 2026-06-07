@@ -1,0 +1,325 @@
+/* ============================================================
+   TAMIM IQBAL — PORTFOLIO SYSTEM
+   Global Stylesheet
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+/* ---- TOKENS ---- */
+:root {
+  --ink:       #080808;
+  --paper:     #f5f3ef;
+  --crimson:   #c8102e;
+  --crimson-l: rgba(200,16,46,0.08);
+  --crimson-m: rgba(200,16,46,0.18);
+  --silver:    #888;
+  --mute:      #bbb;
+  --rule:      rgba(0,0,0,0.09);
+  --rule-w:    rgba(255,255,255,0.09);
+
+  --f-display: 'Syne', sans-serif;
+  --f-serif:   'Cormorant Garamond', serif;
+  --f-mono:    'JetBrains Mono', monospace;
+}
+
+/* ---- RESET ---- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---- CURSOR ---- */
+*, a, button { cursor: crosshair; }
+
+/* ---- SELECTION ---- */
+::selection { background: var(--crimson); color: #fff; }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--crimson); }
+
+/* ============================================================
+   NAVIGATION — persistent top bar
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  background: rgba(245,243,239,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-wordmark {
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-wordmark .accent { color: var(--crimson); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.25s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--crimson);
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+
+.nav-index {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--mute);
+  letter-spacing: 0.12em;
+}
+
+/* Mobile nav toggle */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-burger span {
+  display: block;
+  width: 22px; height: 1px;
+  background: var(--ink);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page-wrapper {
+  padding-top: 64px;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: var(--paper);
+}
+.footer-left {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--silver);
+}
+.footer-left a { color: var(--crimson); text-decoration: none; }
+.footer-right {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+}
+
+/* ============================================================
+   UTILITY ANIMATIONS
+   ============================================================ */
+@keyframes line-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.anim-fade-up   { animation: fade-up   0.7s cubic-bezier(0.4,0,0.2,1) both; }
+.anim-fade-in   { animation: fade-in   0.6s ease both; }
+.anim-slide-r   { animation: slide-right 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+
+[data-delay="1"] { animation-delay: 0.1s; }
+[data-delay="2"] { animation-delay: 0.2s; }
+[data-delay="3"] { animation-delay: 0.35s; }
+[data-delay="4"] { animation-delay: 0.5s; }
+[data-delay="5"] { animation-delay: 0.65s; }
+[data-delay="6"] { animation-delay: 0.8s; }
+
+/* Scroll reveal */
+.sr {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1),
+              transform 0.75s cubic-bezier(0.4,0,0.2,1);
+}
+.sr.visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   SHARED SECTION TYPOGRAPHY
+   ============================================================ */
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px; height: 1px;
+  background: var(--crimson);
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-family: var(--f-display);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.page-title .stroke {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+.page-title .red { color: var(--crimson); }
+
+.section-rule {
+  width: 100%; height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+}
+
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+  white-space: nowrap;
+}
+.btn-solid {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.btn-solid:hover {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.btn-outline:hover {
+  background: var(--ink);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--crimson);
+  border-color: var(--crimson);
+  padding: 10px 20px;
+}
+.btn-ghost:hover {
+  background: var(--crimson);
+  color: #fff;
+}
+
+/* Arrow icon */
+.btn svg { transition: transform 0.25s; }
+.btn:hover svg { transform: translateX(4px); }
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+@media (max-width: 900px) {
+  .site-nav { padding: 0 24px; }
+  .site-footer { padding: 28px 24px; }
+  .nav-links { display: none; }
+  .nav-index { display: none; }
+  .nav-burger { display: flex; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: rgba(245,243,239,0.98);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 0;
+  }
+  .nav-links.open a {
+    padding: 14px 24px;
+    font-size: 11px;
+    display: block;
+  }
+  .nav-links.open a::after { display: none; }
+}

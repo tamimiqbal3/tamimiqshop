@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamim Iqbal — About</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #pageProgress {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background: var(--crimson);
+        z-index: 199;
+        transition: width 0.1s linear;
+      }
+
+      /* ---- PAGE HEADER ---- */
+      .page-header {
+        padding: 72px 60px 64px;
+        border-bottom: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: end;
+      }
+      .ph-left .page-num {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        margin-bottom: 32px;
+      }
+      .ph-right {
+        padding-bottom: 4px;
+      }
+      .ph-right p {
+        font-family: var(--f-serif);
+        font-size: 20px;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--silver);
+        line-height: 1.55;
+      }
+
+      /* ---- BIO GRID ---- */
+      .bio-section {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        border-bottom: 1px solid var(--rule);
+      }
+      .bio-sidebar {
+        padding: 60px 40px;
+        border-right: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+      .bio-sidebar-item .bsi-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .bio-sidebar-item .bsi-value {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.4;
+      }
+      .bio-sidebar-item .bsi-sub {
+        font-family: var(--f-display);
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--silver);
+        margin-top: 2px;
+      }
+      .bio-main {
+        padding: 60px 60px;
+      }
+      .bio-paragraphs {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        max-width: 680px;
+      }
+      .bio-paragraphs p {
+        font-family: var(--f-serif);
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 1.65;
+        color: var(--ink);
+      }
+      .bio-paragraphs p strong {
+        font-weight: 600;
+        font-style: normal;
+      }
+      .bio-paragraphs p em {
+        font-style: italic;
+        color: var(--crimson);
+      }
+
+      /* ---- INTERESTS STRIP ---- */
+      .interests-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .interest-item {
+        padding: 20px 36px;
+        border-right: 1px solid var(--rule);
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--silver);
+        transition:
+          background 0.25s,
+          color 0.25s;
+        white-space: nowrap;
+      }
+      .interest-item:hover {
+        background: var(--crimson-l);
+        color: var(--crimson);
+      }
+      .interest-item:last-child {
+        border-right: none;
+      }
+
+      /* ---- EDUCATION TIMELINE ---- */
+      .education-section {
+        padding: 80px 60px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .ed-header {
+        display: flex;
+        align-items: baseline;
+        gap: 20px;
+        margin-bottom: 64px;
+      }
+      .ed-header .eyebrow {
+        margin-bottom: 0;
+      }
+      .ed-header .ed-title {
+        font-family: var(--f-display);
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 0;
+      }
+      .tl-spine {
+        position: relative;
+        padding-top: 6px;
+      }
+      .tl-spine::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        bottom: 0;
+        left: 0;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--crimson) 0%,
+          var(--rule) 100%
+        );
+      }
+      .tl-entries {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .tl-entry {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 0;
+        border-bottom: 1px solid var(--rule);
+        padding: 48px 0;
+      }
+      .tl-entry:last-child {
+        border-bottom: none;
+      }
+      .tl-year-col {
+        padding-right: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        position: relative;
+      }
+      .tl-dot {
+        width: 8px;
+        height: 8px;
+        border: 1.5px solid var(--crimson);
+        border-radius: 50%;
+        background: var(--paper);
+        position: absolute;
+        left: -204px;
+        top: 3px;
+      }
+      .tl-entry.active .tl-dot {
+        background: var(--crimson);
+      }
+      .tl-period {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        color: var(--crimson);
+        text-transform: uppercase;
+      }
+      .tl-status {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      .tl-content {
+        padding-left: 48px;
+      }
+      .tl-institution {
+        font-family: var(--f-display);
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        margin-bottom: 6px;
+      }
+      .tl-degree {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--silver);
+        margin-bottom: 16px;
+      }
+      .tl-desc {
+        font-family: var(--f-serif);
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.65;
+        color: #666;
+        max-width: 560px;
+      }
+      .tl-tag {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 5px 12px;
+        background: var(--crimson-l);
+        border: 1px solid rgba(200, 16, 46, 0.2);
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        color: var(--crimson);
+        text-transform: uppercase;
+      }
+
+      /* ---- RESPONSIVE ---- */
+      @media (max-width: 900px) {
+        .page-header {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding: 48px 24px 40px;
+        }
+        .bio-section {
+          grid-template-columns: 1fr;
+        }
+        .bio-sidebar {
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+          padding: 40px 24px;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 28px;
+        }
+        .bio-main {
+          padding: 40px 24px;
+        }
+        .education-section {
+          padding: 60px 24px;
+        }
+        .tl-entry {
+          grid-template-columns: 1fr;
+        }
+        .tl-year-col {
+          padding-right: 0;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 16px;
+        }
+        .tl-dot {
+          display: none;
+        }
+        .tl-content {
+          padding-left: 0;
+        }
+        .timeline {
+          grid-template-columns: 1fr;
+        }
+        .tl-spine {
+          display: none;
+        }
+        .interests-strip {
+          flex-direction: column;
+        }
+        .interest-item {
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pageProgress"></div>
+
+    <nav class="site-nav">
+      <a href="index.html" class="nav-wordmark"
+        >Tamim<span class="accent">.</span>Iqbal</a
+      >
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <span class="nav-index">Rajshahi, BD — 2025</span>
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="page-wrapper">
+      <!-- PAGE HEADER -->
+      <header class="page-header">
+        <div class="ph-left">
+          <div class="page-num anim-fade-up" data-delay="1">02 / About</div>
+          <h1 class="page-title anim-fade-up" data-delay="2">
+            About<br />
+            <span class="stroke">Me.</span>
+          </h1>
+        </div>
+        <div class="ph-right anim-fade-up" data-delay="3">
+          <p>
+            A student, builder, and community organizer from Rajshahi — driven
+            by curiosity and a belief that technology should serve people.
+          </p>
+        </div>
+      </header>
+
+      <!-- BIO SECTION -->
+      <section class="bio-section">
+        <aside class="bio-sidebar">
+          <div class="bio-sidebar-item sr">
+            <div class="bsi-label">Full Name</div>
+            <div class="bsi-value">Md. Tamim Iqbal</div>
+          </div>
+          <div class="bio-sidebar-item sr">
+            <div class="bsi-label">Based In</div>
+            <div class="bsi-value">Rajshahi</div>
+            <div class="bsi-sub">Bangladesh</div>
+          </div>
+          <div class="bio-sidebar-item sr">
+            <div class="bsi-label">Status</div>
+            <div class="bsi-value">HSC Student</div>
+            <div class="bsi-sub">NGDC — Batch 2027</div>
+          </div>
+          <div class="bio-sidebar-item sr">
+            <div class="bsi-label">Club</div>
+            <div class="bsi-value">NGDCSC</div>
+            <div class="bsi-sub">Science Club</div>
+          </div>
+          <div class="bio-sidebar-item sr">
+            <div class="bsi-label">Portfolio</div>
+            <div class="bsi-value">
+              <a
+                href="https://tamimiq.shop"
+                target="_blank"
+                rel="noopener"
+                style="
+                  color: var(--crimson);
+                  text-decoration: none;
+                  font-size: 12px;
+                "
+                >tamimiq.shop/a
+              >
+            </div>
+          </div>
+        </aside>
+        <main class="bio-main">
+          <div class="bio-paragraphs" data-stagger="0.15">
+            <p class="sr">
+              I am <strong>Tamim Iqbal</strong> — a student currently pursuing
+              my Higher Secondary Certificate at
+              <strong>New Government Degree College, Rajshahi</strong>, where I
+              am also an active member of the NGDC Science Club.
+            </p>
+            <p class="sr">
+              My work sits at the intersection of
+              <em>design, development, and leadership.</em> I build digital
+              systems — attendance platforms, event registration tools, and
+              community portals — that solve real problems for real people.
+            </p>
+            <p class="sr">
+              Beyond the screen, I am deeply involved in
+              <strong>community organizing</strong>. From coordinating science
+              festivals to managing debate programs, I approach every initiative
+              with the same precision I bring to code.
+            </p>
+            <p class="sr">
+              I am particularly interested in
+              <strong>artificial intelligence</strong> and how it can be applied
+              responsibly in educational and community contexts. My long-term
+              goal is to contribute to the technology ecosystem of Bangladesh.
+            </p>
+          </div>
+        </main>
+      </section>
+
+      <!-- INTERESTS -->
+      <div class="interests-strip sr">
+        <div class="interest-item">Web Development</div>
+        <div class="interest-item">Artificial Intelligence</div>
+        <div class="interest-item">UI / UX Design</div>
+        <div class="interest-item">Debate</div>
+        <div class="interest-item">Community Organizing</div>
+        <div class="interest-item">Event Management</div>
+        <div class="interest-item">Leadership</div>
+      </div>
+
+      <!-- EDUCATION TIMELINE -->
+      <section class="education-section">
+        <div class="ed-header sr">
+          <div class="eyebrow">Education</div>
+          <h2 class="ed-title">Academic Timeline</h2>
+        </div>
+
+        <div class="timeline" data-stagger="0.2">
+          <div class="tl-spine"></div>
+          <div class="tl-entries">
+            <div class="tl-entry sr">
+              <div class="tl-year-col">
+                <div class="tl-dot"></div>
+                <div class="tl-period">2023 — 2025</div>
+                <div class="tl-status">Completed</div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-institution">Rajshahi Collegiate School</div>
+                <div class="tl-degree">
+                  Secondary School Certificate (SSC) — Science
+                </div>
+                <p class="tl-desc">
+                  Completed secondary education with outstanding academic
+                  performance, building a rigorous foundation in sciences and
+                  mathematics at one of Rajshahi's most prestigious
+                  institutions.
+                </p>
+                <div class="tl-tag">GPA 5.0 / 5.0</div>
+              </div>
+            </div>
+
+            <div class="tl-entry active sr">
+              <div class="tl-year-col">
+                <div class="tl-dot"></div>
+                <div class="tl-period">2025 — 2027</div>
+                <div class="tl-status">In Progress</div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-institution">New Govt. Degree College</div>
+                <div class="tl-degree">
+                  Higher Secondary Certificate (HSC) — Science, Rajshahi
+                </div>
+                <p class="tl-desc">
+                  Currently enrolled in the science stream at NGDC, Rajshahi —
+                  one of Bangladesh's leading higher secondary institutions.
+                  Concurrently active in the NGDC Science Club, leading
+                  organizational and technical initiatives.
+                </p>
+                <div class="tl-tag">Batch 2027 — Active</div>
+              </div>
+            </div>
+
+            <div class="tl-entry sr">
+              <div class="tl-year-col">
+                <div class="tl-dot"></div>
+                <div class="tl-period">2025 — Present</div>
+                <div class="tl-status">Active</div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-institution">NGDC Science Club (NGDCSC)</div>
+                <div class="tl-degree">Organizational & Leadership Member</div>
+                <p class="tl-desc">
+                  Serving in organizational and leadership capacities within the
+                  NGDCSC — coordinating science festivals, managing attendance
+                  systems, and developing digital tools to support the club's
+                  programs and community outreach.
+                </p>
+                <div class="tl-tag">Leadership Role</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-left">
+        &copy; 2025 Tamim Iqbal &nbsp;&middot;&nbsp;
+        <a href="https://tamimiq.shop" target="_blank" rel="noopener"
+          >tamimiq.shop</a
+        >
+      </div>
+      <div class="footer-right">Rajshahi, Bangladesh</div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

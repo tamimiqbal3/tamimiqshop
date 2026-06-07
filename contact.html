@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamim Iqbal — Contact</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #pageProgress {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background: var(--crimson);
+        z-index: 199;
+        transition: width 0.1s linear;
+      }
+
+      /* ---- PAGE HEADER ---- */
+      .page-header {
+        padding: 72px 60px 64px;
+        border-bottom: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: end;
+      }
+      .ph-left .page-num {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        margin-bottom: 32px;
+      }
+      .ph-right p {
+        font-family: var(--f-serif);
+        font-size: 20px;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--silver);
+        line-height: 1.55;
+      }
+
+      /* ---- MAIN CONTACT GRID ---- */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        border-bottom: 1px solid var(--rule);
+        min-height: calc(100vh - 300px);
+      }
+
+      /* LEFT PANEL */
+      .contact-info {
+        padding: 64px 48px;
+        border-right: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .ci-top {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .ci-block .ci-label {
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .ci-block .ci-value {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .ci-block a.ci-value {
+        text-decoration: none;
+        color: var(--ink);
+        transition: color 0.2s;
+      }
+      .ci-block a.ci-value:hover {
+        color: var(--crimson);
+      }
+      .ci-block .ci-sub {
+        font-family: var(--f-display);
+        font-size: 12px;
+        color: var(--silver);
+        margin-top: 2px;
+      }
+
+      /* Social links */
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--rule);
+        text-decoration: none;
+        color: var(--ink);
+        transition:
+          padding-left 0.25s,
+          color 0.25s;
+      }
+      .social-link:first-child {
+        border-top: 1px solid var(--rule);
+      }
+      .social-link:hover {
+        padding-left: 6px;
+        color: var(--crimson);
+      }
+      .sl-name {
+        font-family: var(--f-display);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .sl-handle {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: var(--mute);
+        transition: color 0.25s;
+      }
+      .social-link:hover .sl-handle {
+        color: var(--crimson);
+      }
+
+      .ci-availability {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .avail-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #22c55e;
+        animation: avail-pulse 3s ease-in-out infinite;
+      }
+      @keyframes avail-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .avail-text {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        color: var(--silver);
+        text-transform: uppercase;
+      }
+
+      /* RIGHT — FORM */
+      .contact-form-panel {
+        padding: 64px 60px;
+      }
+      .form-heading {
+        font-family: var(--f-display);
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .form-subheading {
+        font-family: var(--f-serif);
+        font-size: 17px;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--silver);
+        margin-bottom: 48px;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        max-width: 600px;
+      }
+
+      .field-group {
+        position: relative;
+        border-bottom: 1px solid var(--rule);
+        transition: border-color 0.3s;
+      }
+      .field-group:first-child {
+        border-top: 1px solid var(--rule);
+      }
+      .field-group:focus-within {
+        border-color: var(--crimson);
+      }
+
+      .field-label {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        font-family: var(--f-mono);
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: var(--mute);
+        text-transform: uppercase;
+        pointer-events: none;
+        transition: color 0.2s;
+      }
+      .field-group:focus-within .field-label {
+        color: var(--crimson);
+      }
+
+      .field-group input,
+      .field-group textarea,
+      .field-group select {
+        width: 100%;
+        padding: 36px 0 16px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-family: var(--f-display);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--ink);
+        -webkit-appearance: none;
+      }
+      .field-group textarea {
+        resize: none;
+        min-height: 120px;
+      }
+      .field-group select option {
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .form-row .field-group:first-child {
+        border-right: 1px solid var(--rule);
+      }
+
+      .form-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 32px;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .form-note {
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: var(--mute);
+      }
+
+      /* Submit button */
+      .submit-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 36px;
+        background: var(--ink);
+        color: #fff;
+        border: 1px solid var(--ink);
+        font-family: var(--f-mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition:
+          background 0.25s,
+          border-color 0.25s,
+          transform 0.2s;
+      }
+      .submit-btn:hover {
+        background: var(--crimson);
+        border-color: var(--crimson);
+        transform: translateY(-2px);
+      }
+      .submit-btn svg {
+        transition: transform 0.25s;
+      }
+      .submit-btn:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* Success state */
+      .form-success {
+        display: none;
+        padding: 20px 0;
+        font-family: var(--f-display);
+        font-size: 15px;
+        font-weight: 600;
+        color: #22c55e;
+        letter-spacing: 0.02em;
+      }
+
+      @media (max-width: 900px) {
+        .page-header {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding: 48px 24px 40px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-info {
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+          padding: 48px 24px;
+        }
+        .ci-top {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 28px;
+        }
+        .contact-form-panel {
+          padding: 48px 24px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .form-row .field-group:first-child {
+          border-right: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pageProgress"></div>
+
+    <nav class="site-nav">
+      <a href="index.html" class="nav-wordmark"
+        >Tamim<span class="accent">.</span>Iqbal</a
+      >
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <span class="nav-index">Rajshahi, BD — 2025</span>
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        <div class="ph-left">
+          <div class="page-num anim-fade-up" data-delay="1">05 / Contact</div>
+          <h1 class="page-title anim-fade-up" data-delay="2">
+            Get in<br />
+            <span class="red">Touch.</span>
+          </h1>
+        </div>
+        <div class="ph-right anim-fade-up" data-delay="3">
+          <p>
+            Open to collaborations, conversations, and new opportunities.
+            Whether you have a project in mind or simply want to connect — reach
+            out.
+          </p>
+        </div>
+      </header>
+
+      <div class="contact-grid">
+        <!-- LEFT — INFO -->
+        <aside class="contact-info">
+          <div class="ci-top" data-stagger="0.12">
+            <div class="ci-block sr">
+              <div class="ci-label">Location</div>
+              <div class="ci-value">Rajshahi, Bangladesh</div>
+              <div class="ci-sub">Dhaka Division</div>
+            </div>
+
+            <div class="ci-block sr">
+              <div class="ci-label">Portfolio</div>
+              <a
+                href="https://tamimiq.shop"
+                target="_blank"
+                rel="noopener"
+                class="ci-value"
+                >tamimiq.vshop</a
+              >
+            </div>
+
+            <div class="ci-block sr">
+              <div class="ci-label">Social Channels</div>
+              <div class="social-links">
+                <a
+                  href="https://instagram.com/tamimiq_"
+                  target="_blank"
+                  rel="noopener"
+                  class="social-link"
+                >
+                  <span class="sl-name">Instagram</span>
+                  <span class="sl-handle">@tamimiq_</span>
+                </a>
+                <a
+                  href="https://tamimiq.shop"
+                  target="_blank"
+                  rel="noopener"
+                  class="social-link"
+                >
+                  <span class="sl-name">Portfolio</span>
+                  <span class="sl-handle">tamimiq.shop</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="ci-availability sr">
+            <div class="avail-dot"></div>
+            <div class="avail-text">Available for collaboration</div>
+          </div>
+        </aside>
+
+        <!-- RIGHT — FORM -->
+        <div class="contact-form-panel">
+          <h2 class="form-heading anim-fade-up" data-delay="2">
+            Send a Message
+          </h2>
+          <p class="form-subheading anim-fade-up" data-delay="3">
+            Fill out the form below and I will respond promptly.
+          </p>
+
+          <form
+            class="contact-form anim-fade-up"
+            id="contactForm"
+            data-delay="4"
+            novalidate
+          >
+            <div class="form-row">
+              <div class="field-group">
+                <label class="field-label" for="cf-name">Full Name</label>
+                <input
+                  type="text"
+                  id="cf-name"
+                  name="name"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="cf-email">Email Address</label>
+                <input
+                  type="email"
+                  id="cf-email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="cf-subject">Subject</label>
+              <input type="text" id="cf-subject" name="subject" />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <div class="form-note">
+                All fields marked as required will be validated.
+              </div>
+              <button type="submit" class="submit-btn">
+                Send Message
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M2 7h10M7 2l5 5-5 5"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div class="form-success" id="formSuccess">
+              Message sent. I will be in touch shortly.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-left">
+        &copy; 2025 Tamim Iqbal &nbsp;&middot;&nbsp;
+        <a href="https://tamimiq.shop" target="_blank" rel="noopener"
+          >tamimiq.shop</a
+        >
+      </div>
+      <div class="footer-right">Rajshahi, Bangladesh</div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const btn = this.querySelector(".submit-btn");
+          btn.textContent = "Sending...";
+          btn.style.opacity = "0.6";
+          setTimeout(() => {
+            btn.style.display = "none";
+            document.getElementById("formSuccess").style.display = "block";
+          }, 1200);
+        });
+    </script>
+  </body>
+</html>
